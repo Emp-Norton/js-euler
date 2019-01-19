@@ -1,11 +1,23 @@
-const getData = () => {
+'use strict';
+const fs = require('fs');
+const arg = process.argv.slice(0, 2)[0];
+
+const getData = (filepath) => {
+  filepath = filepath && filepath.length > 0 ? filepath : './data/data-11.js';
+  let input;
   const matrix = [];
-  let nums = input.split(' ').map(i => parseInt(i));
-  for (let i = 0; i < nums.length; i += 20) {
-    const slice = nums.slice(i, i + 20);
-    matrix.push(slice);
-  }
-  return matrix;
+  
+  fs.readFile(filepath, 'utf-8', (err, data) => {
+    if (err) console.log("Error. Please check filepath.", err);
+    if (data) {
+      const nums = data.split(' ').map(i => parseInt(i));
+      for (let i = 0; i < nums.length; i += 20) {
+        matrix.push(nums.slice(i, i + 20));
+      }
+    }
+
+  return findMaxRange(matrix);
+  });
 }
 
 const calcProduct = (arr) => {
@@ -14,9 +26,8 @@ const calcProduct = (arr) => {
   }, 1);
 }
 
-const findMaxRange = () => {
+const findMaxRange = (data) => {
   let bestProduct;
-  const data = getData();
   let line, horiz, vert, diagLeft, diagRight;
   for (let lineIndex = 0; lineIndex < data.length - 3; lineIndex++) {
     for (let numIndex = 0; numIndex < data[lineIndex].length - 3; numIndex++) {
@@ -54,7 +65,13 @@ const findMaxRange = () => {
 
     }
   }
+  console.log(bestProduct);
   return bestProduct
 }
 
-findMaxRange();
+const fetchData = new Promise((resolve, reject) => {
+  resolve(getData());
+});
+
+fetchData.then((data) => {
+})
