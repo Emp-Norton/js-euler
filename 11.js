@@ -73,5 +73,4 @@ const fetchData = new Promise((resolve, reject) => {
   resolve(getData());
 });
 
-fetchData.then((data) => {
-})
+fetchData
