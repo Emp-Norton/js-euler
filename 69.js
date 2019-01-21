@@ -1,10 +1,3 @@
-const prime = (n) => {
-  for (let i = 2; i <= Math.sqrt(n); i++) { // benchmark this vs memoization approach
-    if (n % i === 0) return false
-  }
-  return true
-}
-
 const coprimes = (a, b) => {
   const max = Math.max(a, b)
   for (let i = 2; i <= max; i++) {
@@ -28,8 +21,10 @@ const getKeyByValue = (object, value) => {
 }
 
 const totientMaximum = (n) => {
+  // memoize coprimes here so I don't have to recalc every time
   let totients = {};
   for (let i = 2; i <= n; i++) {
+    console.log(i);
     totients[i] = i / countCoprimes(i);
   }
   const max = Math.max.apply(null, Object.values(totients));
