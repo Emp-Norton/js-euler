@@ -11,3 +11,22 @@ Your task has been made easy, as the encryption key consists of three lower case
 */
 
 'use strict';
+const fs = require('fs');
+
+
+const getData = (filepath) => {
+  filepath = filepath ? filepath : './data/data-59.js';
+	fs.readFile(filepath, 'utf-8', (err, data) => {
+		if (err) console.log(err);
+    if (data) {
+      processData(data);
+    }
+	});
+}
+
+const processData = (data) => {
+  const nums = data.split(',').map(i => parseInt(i));
+  console.log(nums);
+}
+
+getData();
