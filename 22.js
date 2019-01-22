@@ -1,7 +1,10 @@
 const fs = require('fs');
 
 const processName = (name) => {
-  let result = name.split('').map(char => char.toLowerCase().charCodeAt(0) - 96).reduce((sum, num) => { return sum += num }, 0);
+  let result = name.split('').map(char => char
+    .toLowerCase()
+    .charCodeAt(0) - 96)
+  .reduce((sum, num) => { return sum += num }, 0);
   return result
 }
 
@@ -9,7 +12,9 @@ const processData = (data) => {
   const names = data.split(',');
   names.sort();
   let index = 1;
-  const result = names.map(processName).reduce((sum, num) => { return sum += (num * index++) }, 0);
+  const result = names
+    .map(processName)
+    .reduce((sum, num) => { return sum += (num * index++) }, 0);
   console.log(result);
   return result
 }
