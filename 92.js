@@ -19,18 +19,22 @@ const squareDigits = (n) => {
 	  .reduce((sum, num) => { return sum += num }, 0);
 }
 
-const chain = (n, orig) => {
-  while (n != 89) {
-    if (n == 1) return false
-    n = squareDigits(n);
-  }
-  if (n == 89) return true
-  return false
-}
-
 const main = (n) => {
-  let visited = {} // memoize to avoid repeats
   let targetNums = {};
+  const chain = (n, orig) => {
+    while (n != 89) {
+      if (n == 1) return false
+      if (targetNums[n]) {
+        return true
+      } else {
+        n = squareDigits(n);
+      }
+    }
+  
+    if (n == 89) return true
+      return false
+  };
+
   for (let i = 2; i <= n; i++) {
     if (chain(i, i)) {
       targetNums[i] = true;
