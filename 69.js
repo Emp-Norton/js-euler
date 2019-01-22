@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const coprimes = (a, b) => {
   const max = Math.max(a, b);
   for (let i = 2; i <= max; i++) {
@@ -21,7 +23,7 @@ const getKeyByValue = (object, value) => {
 
 const totientMaximum = (n) => {
   let totients = {};
-  let coprimeMemo = {};  
+  let coprimeMemo = {};
   for (let i = 2; i <= n; i++) {
     if (coprimeMemo[i]) {
       totients[i] = i / coprimeMemo[i-1] + countCoprimes(i-1, i);
@@ -32,7 +34,11 @@ const totientMaximum = (n) => {
     }
   }
   const max = Math.max.apply(null, Object.values(totients));
-  return getKeyByValue(totients, max);
+  const answer = getKeyByValue(totients, max);
+  fs.appendFile('answer.txt', answer, (err, stdout) =>{
+    if (err || stdout) console.log(err, stdout);
+    console.log('saved');
+  })
 }
 
 const benchmark = (fn, n) => {
