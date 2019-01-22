@@ -4,7 +4,7 @@ const args = process.argv.slice(2)[0];
 const factorial = (n) => {
 	// simple impl before memoize
   const res = n <= 2 ? n : n * factorial(n - 1);
-  console.log(res);
+  console.log(res.toFixed()); // this is a problem. JS doesn't handle large numbers well
   return res
 }
 
