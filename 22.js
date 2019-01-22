@@ -1,10 +1,13 @@
 const fs = require('fs');
 
 const processName = (name) => {
+  name = name.replace(/\"/g, ""); // nix quotes
   let result = name.split('').map(char => char
     .toLowerCase()
-    .charCodeAt(0) - 96)
-  .reduce((sum, num) => { return sum += num }, 0);
+    .charCodeAt(0) - 96);
+  console.log(result);
+  result = result.reduce((sum, num) => { return sum += num }, 0);
+  if (result <= 0) console.log(`FLAG: ${result}`)
   return result
 }
 
