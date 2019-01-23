@@ -21,9 +21,9 @@ const squareDigits = (n) => {
 
 const main = (n) => {
   let targetNums = {};
-  const chain = (n, orig) => {
-    while (n != 89) {
-      if (n == 1) return false
+  const chain = (n) => {
+    while (n !== 89) {
+      if (n === 1) return false
       if (targetNums[n]) {
         return true
       } else {
@@ -31,16 +31,17 @@ const main = (n) => {
       }
     }
   
-    if (n == 89) return true
+    if (n === 89) return true
       return false
   };
 
   for (let i = 2; i <= n; i++) {
-    if (chain(i, i)) {
+    if (chain(i)) {
       targetNums[i] = true;
     }
   }
-  console.log(Object.keys(targetNums).length);
+  console.log(Object.keys(targetNums).length); // for console use
+  return Object.keys(targetNums).length
 }
 
 main(10000000);
