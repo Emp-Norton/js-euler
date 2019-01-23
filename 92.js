@@ -21,7 +21,7 @@ const squareDigits = (n) => {
 
 const main = (n) => {
   let targetNums = {};
-  const chain = (n) => {
+  const chain = (n) => { // this is a little messy looking but chain needs access to the targetNums object
     while (n !== 89) {
       if (n === 1) return false
       if (targetNums[n]) {
