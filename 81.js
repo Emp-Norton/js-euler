@@ -12,6 +12,8 @@ In the 5 by 5 matrix below, the minimal path sum from the top left to the bottom
 Find the minimal path sum, in matrix.txt (right click and "Save Link/Target As..."), a 31K text file containing a 80 by 80 matrix, from the top left to the bottom right by only moving right and down.
 */
 
+
+// node --max-old-space-size=2048 increase memory allocation for node process
 'use strict';
 
 const fs = require('fs');
@@ -53,9 +55,16 @@ const findMinPath = (grid) => {
   let pathScores = [];
 
   const recurse = (i, j, total) => {
+    // there must be a way to memoize this such that I don't need to recalc (i, j) each time
+      // problem: there are multiple paths to any particular (i, j) pair 
+      // (2, 2) can be reach by 00, 01, 02, 12, 22 or 00, 10, 20, 21, 22
+      // these will have different weights given different node values along the way
     console.log(i, j);
     const curr = grid[i][j] + total;
-    if (i == grid.length - 1 && j == grid.length - 1) pathScores.push(curr);
+    if (i == grid.length - 1 && j == grid.length - 1) {
+      pathScores.push(curr);
+      return
+    } 
     if (isInRange(i + 1, j, grid)) recurse(i + 1, j, curr);
     if (isInRange(i, j + 1, grid))  recurse(i, j + 1, curr);
   }
