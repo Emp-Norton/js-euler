@@ -19,14 +19,14 @@ const fs = require('fs');
 const getData = (filepath) => {
   filepath = filepath ? filepath : './data/data-81.js';
 	fs.readFile(filepath, 'utf-8', (err, data) => {
-	  if (err) console.log(err);
+	  if (err) return(err);
       if (data) {
-        console.log(data.split('\n'))
+        data = data.split('\n').slice(0, data.split('\n').length - 1);
+        return(data);
       }
 	});
 }
 
-getData()
 const testGrid = [
 [131, 673, 234, 103, 18],
 [201, 96, 342, 965, 150],
@@ -34,4 +34,9 @@ const testGrid = [
 [537, 699, 497, 121, 956],
 [805, 732, 524, 32, 331]
 ];
+
+
+
+const testAnswer = 2427;
+let testResult;
 
