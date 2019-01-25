@@ -26,6 +26,8 @@ const getData = (filepath) => {
           .slice(0, data.split('\n').length - 1)
           .map(item => item.split(',').map(n => parseInt(n)))
       }
+      console.log('Data fetched.');
+      findMinPath(data);
   });
 }
 
@@ -51,13 +53,16 @@ const findMinPath = (grid) => {
   let pathScores = [];
 
   const recurse = (i, j, total) => {
+    console.log(i, j);
     const curr = grid[i][j] + total;
     if (i == grid.length - 1 && j == grid.length - 1) pathScores.push(curr);
     if (isInRange(i + 1, j, grid)) recurse(i + 1, j, curr);
     if (isInRange(i, j + 1, grid))  recurse(i, j + 1, curr);
   }
   recurse(0, 0, 0);
-  return Math.min(...pathScores)
+  const result = Math.min(...pathScores);
+  console.log(result);
+  return result
 }
 
 
