@@ -18,13 +18,15 @@ const fs = require('fs');
 
 const getData = (filepath) => {
   filepath = filepath ? filepath : './data/data-81.js';
-	fs.readFile(filepath, 'utf-8', (err, data) => {
-	  if (err) return(err);
+  fs.readFile(filepath, 'utf-8', (err, data) => {
+    if (err) return(err);
       if (data) {
-        data = data.split('\n').slice(0, data.split('\n').length - 1);
-        return(data);
+        data = data
+          .split('\n')
+          .slice(0, data.split('\n').length - 1)
+          .map(item => item.split(',').map(n => parseInt(n)))
       }
-	});
+  });
 }
 
 const testGrid = [
@@ -32,7 +34,7 @@ const testGrid = [
 [201, 96, 342, 965, 150],
 [630, 803, 746, 422, 111], 
 [537, 699, 497, 121, 956],
-[805, 732, 524, 32, 331]
+[805, 732, 524, 37, 331]
 ];
 
 
@@ -40,3 +42,23 @@ const testGrid = [
 const testAnswer = 2427;
 let testResult;
 
+
+const isInRange = (i, j, grid) => {
+  return i < grid.length && j < grid.length
+}
+
+const findMinPath = (grid) => {
+  let pathScores = [];
+
+  const recurse = (i, j, total) => {
+    const curr = grid[i][j] + total;
+    if (i == grid.length - 1 && j == grid.length - 1) pathScores.push(curr);
+    if (isInRange(i + 1, j, grid)) recurse(i + 1, j, curr);
+    if (isInRange(i, j + 1, grid))  recurse(i, j + 1, curr);
+  }
+  recurse(0, 0, 0);
+  return Math.min(...pathScores)
+}
+
+
+getData();
