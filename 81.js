@@ -54,11 +54,15 @@ const isInRange = (i, j, grid) => {
 const findMinPath = (grid) => {
   let pathScores = [];
  // count total calculations to see if adding memory is helping or not
+  // upped memory allocation to 8GB and still running out of space. Even if 
+  // more memory is helping, it's not helping enough -- needs fundamental reworking
   const recurse = (i, j, total) => {
     // there must be a way to memoize this such that I don't need to recalc (i, j) each time
       // problem: there are multiple paths to any particular (i, j) pair 
       // (2, 2) can be reach by 00, 01, 02, 12, 22 or 00, 10, 20, 21, 22
-      // these will have different weights given different node values along the way
+      // these will have different weights given different node values along the 
+        // perhaps serialize paths as string ('0001021222': 1432, '0010202122': 2231)
+        // prevent 
     console.log(i, j);
     const curr = grid[i][j] + total;
     if (i == grid.length - 1 && j == grid.length - 1) {
