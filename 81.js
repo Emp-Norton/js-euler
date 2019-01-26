@@ -53,7 +53,7 @@ const isInRange = (i, j, grid) => {
 
 const findMinPath = (grid) => {
   let pathScores = [];
-
+ // count total calculations to see if adding memory is helping or not
   const recurse = (i, j, total) => {
     // there must be a way to memoize this such that I don't need to recalc (i, j) each time
       // problem: there are multiple paths to any particular (i, j) pair 
